@@ -3,6 +3,8 @@ require 'telegram/bot'
 require 'active_support/inflector'
 require 'boker_tov_bot/config'
 require 'boker_tov_bot/runner'
+require 'boker_tov_bot/version'
+
 Dir.glob(File.join(File.dirname(__FILE__), 'boker_tov_bot', 'message_handlers', '*.rb')).each do |f|
   if File.basename(f) == 'base_handler.rb'
     next
