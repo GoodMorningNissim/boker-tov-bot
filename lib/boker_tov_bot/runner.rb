@@ -17,17 +17,20 @@ module BokerTovBot
           when '/stop'
             bot.api.send_message(chat_id: incoming_message.chat.id, text: "Bye, #{incoming_message.from.first_name}")
           else
-            handler = message_handlers.find do |message_handler|
+            handlers = []
+            message_handlers.find do |message_handler|
               begin
-                message_handler.match?(incoming_message.text)
+                handlers << message_handler.match?(incoming_message.text)
               rescue NotImplementedError => e
                 next
               rescue Exception => e
                 next
               end
             end
-            if handler
-              send_response(handler, bot, incoming_message)
+            if !handlers.empty?
+              handlers.each do |handler|
+                send_response(handler, bot, incoming_message)
+              end
             end
           end
         end
@@ -43,6 +46,8 @@ module BokerTovBot
         bot.api.send_photo(chat_id: incoming_message.chat.id, photo: response)
       when :text
         bot.api.send_message(chat_id: incoming_message.chat.id, text: response)
+      when :skip
+        # explicit is better than implicit!
       else
       end
     end
