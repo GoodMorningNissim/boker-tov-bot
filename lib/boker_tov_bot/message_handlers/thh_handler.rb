@@ -4,7 +4,7 @@ module BokerTovBot
   module MessageHandlers
     class ThhHandler < BaseHandler
       def initialize(options = {})
-        @regex = /.*\bט+ח+\b.*/mi
+        @regex = /\b(ט+ח+)\b/mi
         super(options)
       end
 
@@ -14,7 +14,11 @@ module BokerTovBot
 
       def response(message)
         reply_with_probability(1.0) do
-          [:text, message.downcase.gsub('ט', 'פ').gsub('ח', 'ף')]
+          response_arr = []
+          message.downcase.split.each do |word|
+            response_arr << (match?(word) ? word.gsub(/[טח]/, 'ט' => 'פ', 'ח' => 'ף') : word)
+          end
+          [:text, response_arr.join(' ')]
         end
       end
     end

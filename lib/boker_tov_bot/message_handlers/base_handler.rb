@@ -14,7 +14,7 @@ module BokerTovBot
       end
 
       def reply_with_probability(probability = @reply_probability, &block)
-        if rand <= @reply_probability
+        if rand <= probability
           yield
         else
           [:skip, nil]
