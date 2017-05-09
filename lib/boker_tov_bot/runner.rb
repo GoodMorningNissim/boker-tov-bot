@@ -20,7 +20,9 @@ module BokerTovBot
             handlers = []
             message_handlers.find do |message_handler|
               begin
-                handlers << message_handler.match?(incoming_message.text)
+                if message_handler.match?(incoming_message.text)
+                  handlers << message_handler
+                end
               rescue NotImplementedError => e
                 next
               rescue Exception => e
