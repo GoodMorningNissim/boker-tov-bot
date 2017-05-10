@@ -14,7 +14,7 @@ module BokerTovBot
           case incoming_message.text
           when '/start'
             bot.api.send_message(chat_id: incoming_message.chat.id, text: "Hello, #{incoming_message.from.first_name}")
-          when '/version'
+          when '/version', '/version@bokertovbot'
             bot.api.send_message(chat_id: incoming_message.chat.id, text: BokerTovBot::VERSION)
           else
             handlers = []
